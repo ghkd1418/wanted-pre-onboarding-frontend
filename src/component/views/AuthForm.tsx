@@ -1,32 +1,10 @@
-import { useState } from "react";
+import { IauthFormProps } from "../types";
 
-export const AuthForm = () => {
-  const [isValid, setIsValid] = useState({
-    email: false,
-    password: false,
-  });
-  const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.includes("@"))
-      setIsValid((prev) => {
-        return { ...prev, email: true };
-      });
-    else
-      setIsValid((prev) => {
-        return { ...prev, email: false };
-      });
-  };
-
-  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length >= 8)
-      setIsValid((prev) => {
-        return { ...prev, password: true };
-      });
-    else
-      setIsValid((prev) => {
-        return { ...prev, password: false };
-      });
-  };
-
+export const AuthForm = ({
+  handleEmailInput,
+  handlePasswordInput,
+  isValid,
+}: IauthFormProps) => {
   return (
     <form>
       <input data-testid="email-input" onChange={handleEmailInput} />
