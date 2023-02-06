@@ -1,3 +1,4 @@
+import { Idata } from "../type/IAuth";
 import { api } from "./index";
 
 export const TodoApi = {
@@ -7,10 +8,10 @@ export const TodoApi = {
   getTodoById(id: string) {
     return api.get(`/todos/${id}`);
   },
-  createTodo(data: string) {
+  createTodo(data: Idata) {
     return api.post("/todos", data);
   },
-  updateTodo(id: string, data: string) {
+  updateTodo(id: string, data: Idata) {
     return api.put(`/todos/${id}`, data);
   },
   deleteTdod(id: string) {

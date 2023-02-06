@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { AuthFormView } from "./views/AuthForm";
 import { AuthApi } from "../api/AuthApi";
-import type { IauthFormProps } from "./types";
+import type { IAuthFormProps } from "./types";
+import { AxiosError } from "axios";
 
 export const SignInForm = () => {
   const [isValid, setIsValid] = useState({
@@ -11,7 +12,7 @@ export const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const authFormProps: IauthFormProps = {
+  const authFormProps: IAuthFormProps = {
     handleEmailInput: (e: React.ChangeEvent<HTMLInputElement>) => {
       setEmail(e.target.value);
       if (e.target.value.includes("@"))
@@ -32,8 +33,12 @@ export const SignInForm = () => {
         localStorage.setItem("token", data.data.access_token);
         alert("로그인 되었습니다.");
         window.location.href = "/todo";
-      } catch (error: any) {
-        alert(error.response.data.message);
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          alert(error.response?.data.message);
+        } else {
+          alert("Unexpected error");
+        }
       }
     },
     buttonTitle: "로그인",

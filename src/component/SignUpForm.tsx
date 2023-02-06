@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { AuthFormView } from "./views/AuthForm";
-import type { IauthFormProps } from "./types";
+import type { IAuthFormProps } from "./types";
 import { AuthApi } from "../api/AuthApi";
+import { AxiosError } from "axios";
 
 export const SignUpForm = () => {
   const [isValid, setIsValid] = useState({
@@ -10,9 +11,8 @@ export const SignUpForm = () => {
   });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const navigate = useNavigate();
 
-  const authFormProps: IauthFormProps = {
+  const authFormProps: IAuthFormProps = {
     handleEmailInput: (e: React.ChangeEvent<HTMLInputElement>) => {
       setEmail(e.target.value);
       if (e.target.value.includes("@"))
@@ -35,8 +35,12 @@ export const SignUpForm = () => {
           alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
           window.location.href = "/auth/signin";
         }
-      } catch (error: any) {
-        alert(error.response.data.message);
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          alert(error.response?.data.message);
+        } else {
+          alert("Unexpected error");
+        }
       }
     },
     buttonTitle: "회원가입",

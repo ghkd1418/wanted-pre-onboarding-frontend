@@ -1,4 +1,4 @@
-import type { IauthFormProps } from "../types";
+import type { IAuthFormProps } from "../types";
 
 export const AuthFormView = ({
   handleEmailInput,
@@ -6,7 +6,7 @@ export const AuthFormView = ({
   handleFetchAuth,
   buttonTitle,
   isValid,
-}: IauthFormProps) => {
+}: IAuthFormProps) => {
   return (
     <form onSubmit={handleFetchAuth}>
       <input data-testid="email-input" onChange={handleEmailInput} />
