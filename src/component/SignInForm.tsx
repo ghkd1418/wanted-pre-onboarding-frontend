@@ -26,11 +26,15 @@ export const SignInForm = () => {
       else setIsValid((prev) => ({ ...prev, password: false }));
     },
     handleFetchAuth: async (e) => {
-      e.preventDefault();
-      const token = await AuthApi.SignIn({ email, password });
-      console.log(token);
-      localStorage.setItem("token", token.data.access_token);
-      window.location.href = "/auth/signin";
+      try {
+        e.preventDefault();
+        const data = await AuthApi.SignIn({ email, password });
+        localStorage.setItem("token", data.data.access_token);
+        alert("로그인 되었습니다.");
+        window.location.href = "/todo";
+      } catch (error: any) {
+        alert(error.response.data.message);
+      }
     },
     buttonTitle: "로그인",
     isValid,

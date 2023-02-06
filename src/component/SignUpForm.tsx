@@ -2,7 +2,6 @@ import { useState } from "react";
 import { AuthFormView } from "./views/AuthForm";
 import type { IauthFormProps } from "./types";
 import { AuthApi } from "../api/AuthApi";
-// import { useNavigate } from "react-router-dom";
 
 export const SignUpForm = () => {
   const [isValid, setIsValid] = useState({
@@ -27,9 +26,18 @@ export const SignUpForm = () => {
         setIsValid((prev) => ({ ...prev, password: true }));
       else setIsValid((prev) => ({ ...prev, password: false }));
     },
-    handleFetchAuth: (e) => {
-      e.preventDefault();
-      AuthApi.SignUp({ email, password });
+    handleFetchAuth: async (e) => {
+      try {
+        e.preventDefault();
+        const data = await AuthApi.SignUp({ email, password });
+        console.log(data);
+        if (data.status === 201) {
+          alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
+          window.location.href = "/auth/signin";
+        }
+      } catch (error: any) {
+        alert(error.response.data.message);
+      }
     },
     buttonTitle: "회원가입",
     isValid,
