@@ -12,6 +12,14 @@ api.interceptors.request.use(
         Authorization: `Bearer ${token}`,
       });
     }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+api.interceptors.response.use(
+  (config) => {
     return config;
   },
   (error) => Promise.reject(error)
