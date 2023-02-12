@@ -5,9 +5,6 @@ export const TodoApi = {
   getTodos() {
     return api.get("/todos");
   },
-  getTodoById(id: string) {
-    return api.get(`/todos/${id}`);
-  },
   createTodo(data: Idata) {
     return api.post("/todos", data);
   },
