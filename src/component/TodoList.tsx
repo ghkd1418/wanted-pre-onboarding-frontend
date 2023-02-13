@@ -3,20 +3,7 @@ import { TodoApi } from "../api/TodoApi";
 import { useEffect, useState } from "react";
 import { TodoAddForm } from "./views/TodoAddForm";
 import { AxiosError } from "axios";
-import type { ITodoAddForm } from "./types";
-
-export interface ITodoItemFromProps {
-  handleDeleteButton: (id: number) => void;
-  handleModifySubmit: (id: number, todo: string, isComplete: boolean) => void;
-  todo: ITodos;
-}
-
-export interface ITodos {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
-}
+import type { ITodoAddForm, ITodos } from "./types";
 
 export const TodoList = () => {
   const [todo, setTodo] = useState("");
@@ -43,7 +30,7 @@ export const TodoList = () => {
     createTodo: async (e) => {
       try {
         e.preventDefault();
-        e.target.reset();
+        (e.target as HTMLFormElement).reset();
         await TodoApi.createTodo({ todo });
         fetchTodo();
       } catch (error) {

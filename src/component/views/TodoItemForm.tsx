@@ -1,5 +1,5 @@
-import { ITodoItemFromProps } from "../TodoList";
 import { useState } from "react";
+import type { ITodoItemFromProps } from "../types";
 
 export const TodoItemForm = ({
   handleDeleteButton,
