@@ -8,7 +8,6 @@ export const TodoItemForm = ({
 }: ITodoItemFromProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
   const [modifyTodo, setModifyTodo] = useState(todo.todo);
-  const [isChecked, setIsChecked] = useState(false);
 
   const handleModifyButton = () => {
     setIsModifyMode((prev) => !prev);
@@ -16,9 +15,9 @@ export const TodoItemForm = ({
   const handleModifyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setModifyTodo(e.target.value);
   };
-  const handleCheck = () => {
-    setIsChecked((prev) => !prev);
-    handleModifySubmit(todo.id, todo.todo, isChecked);
+  const handleCheckd = (e: React.ChangeEvent<HTMLInputElement>) => {
+    todo.isCompleted = e.target.checked;
+    handleModifySubmit(todo.id, todo.todo, todo.isCompleted);
   };
 
   return (
@@ -28,7 +27,7 @@ export const TodoItemForm = ({
           <input
             type="checkbox"
             checked={todo.isCompleted}
-            onChange={handleCheck}
+            onChange={handleCheckd}
           />
           <input
             data-testid="modify-input"
@@ -38,7 +37,7 @@ export const TodoItemForm = ({
           <button
             data-testid="submit-button"
             onClick={() => {
-              handleModifySubmit(todo.id, modifyTodo, isChecked);
+              handleModifySubmit(todo.id, modifyTodo, todo.isCompleted);
               setIsModifyMode((prev) => !prev);
             }}
           >
@@ -54,7 +53,7 @@ export const TodoItemForm = ({
             <input
               type="checkbox"
               checked={todo.isCompleted}
-              onChange={handleCheck}
+              onChange={handleCheckd}
             />
             <span>{todo.todo}</span>
           </label>
