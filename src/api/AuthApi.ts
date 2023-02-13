@@ -1,5 +1,5 @@
 import { api } from "./index";
-import { IUserInfo } from "../type/IAuth";
+import { IUserInfo } from "./types";
 
 export const AuthApi = {
   SignUp(data: IUserInfo) {

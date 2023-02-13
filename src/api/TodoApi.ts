@@ -1,4 +1,4 @@
-import { Idata } from "../type/IAuth";
+import { Idata } from "./types";
 import { api } from "./index";
 
 export const TodoApi = {
