@@ -43,6 +43,7 @@ export const TodoList = () => {
     createTodo: async (e) => {
       try {
         e.preventDefault();
+        e.target.reset();
         await TodoApi.createTodo({ todo });
         fetchTodo();
       } catch (error) {
