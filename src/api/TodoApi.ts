@@ -8,10 +8,10 @@ export const TodoApi = {
   createTodo(data: Idata) {
     return api.post("/todos", data);
   },
-  updateTodo(id: string, data: Idata) {
+  updateTodo(id: number, data: Idata) {
     return api.put(`/todos/${id}`, data);
   },
-  deleteTdod(id: string) {
+  deleteTodo(id: number) {
     return api.delete(`/todos/${id}`);
   },
 };

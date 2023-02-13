@@ -5,4 +5,5 @@ export interface IUserInfo {
 
 export interface Idata {
   todo: string;
+  isComplete?: boolean;
 }
