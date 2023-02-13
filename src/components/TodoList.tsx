@@ -4,17 +4,24 @@ import { useEffect, useState } from "react";
 import { TodoAddForm } from "./views/TodoAddForm";
 import { AxiosError } from "axios";
 import type { ITodoAddForm, ITodos } from "./types";
+import { useNavigate } from "react-router-dom";
 
 export const TodoList = () => {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
-
+  const navigate = useNavigate();
   const fetchTodo = async () => {
     try {
       const data = await TodoApi.getTodos();
       setTodos(data.data);
     } catch (error) {
       if (error instanceof AxiosError) {
+        console.dir(error);
+        if (error.response?.status === 401) {
+          alert("로그인이 필요한 서비스입니다.");
+          navigate("/signin");
+          return;
+        }
         alert(error.response?.data.message);
       } else {
         alert("Unexpected error❗️");
