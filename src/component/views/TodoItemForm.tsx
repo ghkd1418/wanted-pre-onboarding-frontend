@@ -3,33 +3,47 @@ import { useState } from "react";
 
 export const TodoItemForm = ({
   handleDeleteButton,
-  // handleModifySubmit,
+  handleModifySubmit,
   todo,
 }: ITodoItemFromProps) => {
   const [isModifyMode, setIsModifyMode] = useState(false);
   const [modifyTodo, setModifyTodo] = useState(todo.todo);
-  // const [isChecked, setIsChecked] = useState(false);
-  console.log(todo);
+  const [isChecked, setIsChecked] = useState(false);
+
   const handleModifyButton = () => {
     setIsModifyMode((prev) => !prev);
   };
   const handleModifyChange = (e: any) => {
     setModifyTodo(e.target.value);
   };
-  // const handleCheck = () => {
-  //   setIsChecked((prev) => !prev);
-  // };
+  const handleCheck = () => {
+    setIsChecked((prev) => !prev);
+    handleModifySubmit(todo.id, todo.todo, isChecked);
+  };
 
   return (
     <li key={todo.id}>
       {isModifyMode ? (
         <>
           <input
+            type="checkbox"
+            checked={todo.isCompleted}
+            onChange={handleCheck}
+          />
+          <input
             data-testid="modify-input"
             defaultValue={modifyTodo}
             onChange={handleModifyChange}
           />
-          <button data-testid="submit-button">제출</button>
+          <button
+            data-testid="submit-button"
+            onClick={() => {
+              handleModifySubmit(todo.id, modifyTodo, isChecked);
+              setIsModifyMode((prev) => !prev);
+            }}
+          >
+            제출
+          </button>
           <button data-testid="cancel-button" onClick={handleModifyButton}>
             취소
           </button>
@@ -37,7 +51,11 @@ export const TodoItemForm = ({
       ) : (
         <>
           <label>
-            <input type="checkbox" />
+            <input
+              type="checkbox"
+              checked={todo.isCompleted}
+              onChange={handleCheck}
+            />
             <span>{todo.todo}</span>
           </label>
           <button data-testid="modify-button" onClick={handleModifyButton}>

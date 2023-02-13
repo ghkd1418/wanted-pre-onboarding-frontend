@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 import { TodoAddForm } from "./views/TodoAddForm";
 import { AxiosError } from "axios";
 import type { ITodoAddForm } from "./types";
-import { Idata } from "../type/IAuth";
 
 export interface ITodoItemFromProps {
   handleDeleteButton: (id: number) => void;
-  // handleModifySubmit: (id: number, todo: string) => void;
+  handleModifySubmit: (id: number, todo: string, isComplete: boolean) => void;
   todo: ITodos;
 }
 
@@ -72,10 +71,13 @@ export const TodoList = () => {
         }
       }
     },
-    handleModifySubmit: async (id: number, data: Idata) => {
+    handleModifySubmit: async (
+      id: number,
+      todo: string,
+      isCompleted: boolean
+    ) => {
       try {
-        console.log(id, data);
-        await TodoApi.updateTodo(id, data);
+        await TodoApi.updateTodo(id, { todo, isCompleted });
         fetchTodo();
       } catch (error) {
         if (error instanceof AxiosError) {
