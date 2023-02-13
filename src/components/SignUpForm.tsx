@@ -33,7 +33,7 @@ export const SignUpForm = () => {
         console.log(data);
         if (data.status === 201) {
           alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
-          window.location.href = "/auth/signin";
+          window.location.href = "/signin";
         }
       } catch (error) {
         if (error instanceof AxiosError) {
