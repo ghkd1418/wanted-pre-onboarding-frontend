@@ -61,6 +61,7 @@ export const TodoList = () => {
   const todoItemFormProps = {
     handleDeleteButton: async (id: number) => {
       try {
+        if (!window.confirm("삭제하시겠습니까?")) return;
         await TodoApi.deleteTodo(id);
         fetchTodo();
       } catch (error) {
@@ -94,7 +95,7 @@ export const TodoList = () => {
       <TodoAddForm {...todoAddFormProps} />
       <ul>
         {todos?.map((todo: ITodos) => (
-          <TodoItemForm {...todoItemFormProps} todo={todo} />
+          <TodoItemForm {...todoItemFormProps} todo={todo} key={todo.id} />
         ))}
       </ul>
     </>

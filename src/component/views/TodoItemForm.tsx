@@ -13,7 +13,7 @@ export const TodoItemForm = ({
   const handleModifyButton = () => {
     setIsModifyMode((prev) => !prev);
   };
-  const handleModifyChange = (e: any) => {
+  const handleModifyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setModifyTodo(e.target.value);
   };
   const handleCheck = () => {
@@ -22,7 +22,7 @@ export const TodoItemForm = ({
   };
 
   return (
-    <li key={todo.id}>
+    <li>
       {isModifyMode ? (
         <>
           <input
