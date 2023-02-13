@@ -37,7 +37,7 @@ export const SignInForm = () => {
         if (error instanceof AxiosError) {
           alert(error.response?.data.message);
         } else {
-          alert("Unexpected error");
+          alert("Unexpected error❗️");
         }
       }
     },
