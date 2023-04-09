@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://pre-onboarding-selection-task.shop/",
+  baseURL: "https://www.pre-onboarding-selection-task.shop/",
 });
 
 api.interceptors.request.use(
